@@ -26,11 +26,10 @@ def new_auth_host():
 
 @app.route('/api/auth-hosts/remove/<host_id>', methods=['DELETE'])
 def remove_auth_host(host_id):
-    if not request.json:
-        abort(400)
     couchserver = couchdb.Server("http://127.0.0.1:5984/")
     db = couchserver['auth-hosts']
-    output = db.delete(host_id)
+    doc = db[host_id]
+    db.delete(doc)
     return output
 
 if __name__ == '__main__':
