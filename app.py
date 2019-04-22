@@ -32,5 +32,17 @@ def remove_auth_host(host_id):
     db.delete(doc)
     return jsonify({'doc': doc}), 201
 
+@app.route('/api/auth-hosts/toggle-persistence/<host_id>', methods=['PUT'])
+def toggle_host_persistence(host_id):
+    couchserver = couchdb.Server("http://127.0.0.1:5984/")
+    db = couchserver['auth_hosts']
+    doc = db[host_id]
+    if (doc['persistent'] == "true"):
+        doc['persistent'] = "false"
+    else :
+        doc['persistent'] = "true"
+    db[doc.id] = doc
+    return jsonify({db[doc]}), 201
+
 if __name__ == '__main__':
     app.run(debug=True)
