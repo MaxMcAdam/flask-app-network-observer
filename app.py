@@ -24,7 +24,7 @@ def new_auth_host():
     doc_id, doc_rev = db.save(auth_host)
     return jsonify({'auth-host': auth_host}), 201
 
-@app.route('/api/auth-hosts/remove/<int:id>')
+@app.route('/api/auth-hosts/remove/<int:id>', methods=['DELETE'])
 def remove_auth_host():
     if not request.json:
         abort(400)
