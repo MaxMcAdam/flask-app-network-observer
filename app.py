@@ -30,7 +30,7 @@ def remove_auth_host(host_id):
     db = couchserver['auth-hosts']
     doc = db[host_id]
     db.delete(doc)
-    return output
+    return jsonify({'doc': doc}), 201
 
 if __name__ == '__main__':
     app.run(debug=True)
