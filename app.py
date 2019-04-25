@@ -49,9 +49,15 @@ def display_live_hosts():
     couchserver = couchdb.Server("http://admin:p4ssw0rd@127.0.0.1:5984/")
     disp_rows = []
     db = couchserver['live-hosts']
-    for row in db['live-hosts']:
-        disp_rows.append(row.hostname.name)
+    for row in db.view(host_view):
+        disp_rows.append(row)
     return disp_rows
+
+def host_view(doc):
+    if 'hostname.name' in doc:
+        yield doc['hostname.name'], doc
+    else:
+        yield doc['ipaddress.addr'], doc
 
 if __name__ == '__main__':
     app.run(debug=True)
