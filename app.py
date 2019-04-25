@@ -19,14 +19,14 @@ def new_auth_host():
             'devdesc': request.json.get('devdesc')
     }
 
-    couchserver = couchdb.Server("http://127.0.0.1:5984/")
+    couchserver = couchdb.Server("http://admin:p4ssw0rd@127.0.0.1:5984/")
     db = couchserver['auth-hosts']
     doc_id, doc_rev = db.save(auth_host)
     return jsonify({'auth-host': auth_host}), 201
 
 @app.route('/api/auth-hosts/remove/<host_id>', methods=['DELETE'])
 def remove_auth_host(host_id):
-    couchserver = couchdb.Server("http://127.0.0.1:5984/")
+    couchserver = couchdb.Server("http://admin:p4ssw0rd@127.0.0.1:5984/")
     db = couchserver['auth-hosts']
     doc = db[host_id]
     db.delete(doc)
@@ -34,8 +34,8 @@ def remove_auth_host(host_id):
 
 @app.route('/api/auth-hosts/toggle-persistence/<host_id>', methods=['PUT'])
 def toggle_host_persistence(host_id):
-    couchserver = couchdb.Server("http://127.0.0.1:5984/")
-    db = couchserver['auth_hosts']
+    couchserver = couchdb.Server("http://admin:p4ssw0rd@127.0.0.1:5984/")
+    db = couchserver['auth-hosts']
     doc = db[host_id]
     if (doc['persistent'] == "true"):
         doc['persistent'] = "false"
@@ -43,6 +43,15 @@ def toggle_host_persistence(host_id):
         doc['persistent'] = "true"
     db[doc.id] = doc
     return jsonify({db[doc]}), 201
+
+@app.route('/api/live-hosts/', methods=['GET'])
+def display_live_hosts():
+    couchserver = couchdb.Server("http://admin:p4ssw0rd@127.0.0.1:5984/")
+    disp_rows = []
+    db = couchserver['live_hosts']
+    for row in db.view('_all_docs')
+        disp_rows.append(row.value)
+    return disp_rows
 
 if __name__ == '__main__':
     app.run(debug=True)
