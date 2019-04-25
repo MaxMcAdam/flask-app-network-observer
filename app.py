@@ -48,9 +48,10 @@ def toggle_host_persistence(host_id):
 def display_live_hosts():
     couchserver = couchdb.Server("http://admin:p4ssw0rd@127.0.0.1:5984/")
     disp_rows = []
-    db = couchserver['live_hosts']
-    for row in db.view('_all_docs')
-        disp_rows.append(row.value)
+    db = couchserver['live-hosts']
+    disp_host_view = ViewDefinition('ipaddress.addr', 'hostname.name', 'authorized', 'persistent', 'timediscovered')
+    for row in disp_host_view:
+        disp_rows.append(row.disp_host_view)
     return disp_rows
 
 if __name__ == '__main__':
