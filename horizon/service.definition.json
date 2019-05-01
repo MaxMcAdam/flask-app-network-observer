@@ -1,0 +1,22 @@
+{
+  "org": "$HZN_ORG_ID",
+  "label": "$SERVICE_NAME for $ARCH",
+  "description": "A application for user input in a network monitoring service",
+  "public": true,
+  "documentation": "",
+  "url": "$SERVICE_NAME",
+  "version": "$SERVICE_VERSION",
+  "arch": "$ARCH",
+  "sharable": "multiple",
+  "requiredServices": [
+  ],
+  "userInput": [
+  ],
+  "deployment": {
+      "services": {
+          "$SERVICE_NAME": {
+              "image": "$DOCKER_USER/${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION"
+          }
+      }
+  }
+}
