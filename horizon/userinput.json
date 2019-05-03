@@ -1,9 +1,9 @@
 {
   "services": [
     {
-      "org": "IBM"
-      "url": "network-observer-flask-app"
-      "versionRange": "[0.0.0,INFINITY]"
+      "org": "IBM",
+      "url": "network-observer-flask-app",
+      "versionRange": "[0.0.0,INFINITY]",
       "variables": {
       }
     }

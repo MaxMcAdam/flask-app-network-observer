@@ -15,7 +15,13 @@
   "deployment": {
       "services": {
           "$SERVICE_NAME": {
-              "image": "$DOCKER_USER/${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION"
+              "image": "$DOCKER_USER/${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
+              "ports" : [
+                {
+                  "HostPort":"5000:5000/tcp",
+                  "HostIP":"0.0.0.0"
+                }
+              ]
           }
       }
   }
